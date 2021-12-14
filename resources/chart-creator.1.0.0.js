@@ -217,13 +217,63 @@ function htmlToCanvas() {
 
 		html2canvas(document.querySelector("body")).then(canvas => {
 
-			document.querySelector('#canvas-presentation').appendChild(canvas);
-			document.querySelector('#canvas-presentation').style.display = '';
+			downloadImage(canvas)
+			.then((response) => {
+
+				const image = response[0];
+				const a = document.createElement('a');
+
+				a.href = '/resources/image.png';
+				a.setAttribute('download', image);
+			
+				document.body.append(a);
+				a.click();
+				a.remove();
+
+			})
+
 			document.body.style.pointerEvents = '';
 
 		});
 
 	}, 50)
+
+}
+
+
+function downloadImage(canvas) {
+
+	return new Promise((resolve, reject) => {
+
+		const xhr = new XMLHttpRequest();
+		const formData = new FormData();
+
+		formData.append('img', canvas.toDataURL());
+
+		xhr.onreadystatechange = () => {
+
+			if (xhr.readyState !== xhr.DONE) return;
+
+			console.log(xhr.responseText);
+
+			if (xhr.status === 200) {
+
+				const data = JSON.parse(xhr.responseText);
+
+				resolve(data);
+
+			} else {
+
+				reject();
+
+			}
+
+
+		}
+		xhr.open('POST', '/resources/chart-image-downloader.php');
+		xhr.send(formData);
+
+	});
 
 }
 
