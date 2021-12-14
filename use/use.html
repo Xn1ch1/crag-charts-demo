@@ -5,10 +5,10 @@
 
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
-		<link href="resources/demo.css?v=2" rel="stylesheet">
-		<link href="resources/prism.css?v=1" rel="stylesheet">
-		<script src="resources/demo.js?v=2"></script>
-		<script src="resources/prism.js"></script>
+		<link href="/resources/demo.css" rel="stylesheet">
+		<link href="/resources/prism.css?v=1" rel="stylesheet">
+		<script src="/resources/demo.js?v=2"></script>
+		<script src="/resources/prism.js"></script>
 
 		<title>Crag Charts: How to Use</title>
 
@@ -29,7 +29,7 @@
 
 			<div class="head" id="head"></div>
 
-			<div w3-include-html="navigation.html" id="navigation" class="navigation"></div>
+			<div w3-include-html="/resources/navigation.html" id="navigation" class="navigation"></div>
 
 			<div class="content-table">
 				<ul class="toc">
@@ -117,7 +117,7 @@
 
 				<p>For example, to load the columns chart resources and call the function createCharts the following would be used</p>
 
-<pre><code>crag.onLoadCallBack(createCharts, ['column']);</code></pre>
+<pre><code>new CragLoader(createCharts, ['column']);</code></pre>
 
 				<h2 id="create">Chart Creation</h2>
 
@@ -155,7 +155,7 @@ const chart = new CragColumn(options).create('columns-chart');</code></pre>
 		&lt;script src="https://combinatronics.com/Xn1ch1/Crag-Charts/main/crag/crag.charts.loader.js"&gt;&lt;/script&gt;
 		&lt;script&gt;
 			let chart;
-			crag.onLoadCallBack(createCharts, ['column']);
+			new CragLoader(createCharts, ['column']);
 
 			function createCharts() {
 				const options = {
@@ -173,10 +173,10 @@ const chart = new CragColumn(options).create('columns-chart');</code></pre>
 			</div>
 
 		</div>
-		<script src="crag/crag.charts.loader.js?v=1"></script>
+		<script src="/crag-charts/crag.charts.loader.js"></script>
 		<script>
 			let chart;
-			crag.onLoadCallBack(createCharts, ['column'], '/crag/');
+			new CragLoader(createCharts, ['column'], '/crag-charts/');
 
 			function createCharts() {
 				const options = {

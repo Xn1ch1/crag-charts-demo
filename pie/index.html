@@ -2,7 +2,7 @@
 
 	<head>
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-		<script src="resources/demo.js?v=2"></script>
+		<script src="/resources/demo.js?v=2"></script>
 	</head>
 
 	<!-- <body style="background-color: rgb(34, 34, 34);"> -->
@@ -21,11 +21,11 @@
 
 	</body>
 
-	<script src="crag/crag.charts.loader.js?v=1"></script>
+	<script src="/crag-charts/crag.charts.loader.js"></script>
 	<script>
 
 		let chart;
-		crag.onLoadCallBack(createCharts, ['pie'], '/crag/');
+		new CragLoader(createCharts, ['pie'], '/crag-charts/');
 
 		function createCharts() {
 			const options = {

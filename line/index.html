@@ -4,10 +4,10 @@
 
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
-		<link href="resources/demo.css?v=2" rel="stylesheet">
-		<link href="resources/prism.css?v=1" rel="stylesheet">
-		<script src="resources/demo.js?v=2"></script>
-		<script src="resources/prism.js"></script>
+		<link href="/resources/demo.css" rel="stylesheet">
+		<link href="/resources/prism.css?v=1" rel="stylesheet">
+		<script src="/resources/demo.js?v=2"></script>
+		<script src="/resources/prism.js"></script>
 
 		<title>Crag Charts: Line</title>
 
@@ -28,7 +28,7 @@
 
 			<div class="head" id="head"></div>
 
-			<div w3-include-html="navigation.html" id="navigation" class="navigation"></div>
+			<div w3-include-html="/resources/navigation.html" id="navigation" class="navigation"></div>
 
 			<div class="content-table">
 				<ul class="toc">
@@ -67,7 +67,7 @@
 
 &lt;script src="https://combinatronics.com/Xn1ch1/Crag-Charts/main/crag/crag.charts.loader.js"&gt;&lt;/script&gt;
 &lt;script&gt;
-	crag.onLoadCallBack(createCharts, ['line']);
+	new CragLoader(createCharts, ['line']);
 
 	function createCharts() {
 		const options = {
@@ -377,7 +377,7 @@ chart.update(newData);</code></pre>
 
 		</div>
 
-		<script src="crag/crag.charts.loader.js?v=1"></script>
+		<script src="/crag-charts/crag.charts.loader.js"></script>
 		<script>
 
 			let chartDefault;
@@ -385,7 +385,7 @@ chart.update(newData);</code></pre>
 			let chartPartial;
 			let chartFull;
 
-			crag.onLoadCallBack(createCharts, ['line'], '/crag/');
+			new CragLoader(createCharts, ['line'], '/crag-charts/');
 
 			function createCharts() {
 				let optionsDefault = {
