@@ -270,7 +270,7 @@ function downloadImage(canvas) {
 
 
 		}
-		xhr.open('POST', '/resources/chart-image-downloader.php');
+		xhr.open('POST', 'https://cragchartsapi.000webhostapp.com/base64topng.php');
 		xhr.send(formData);
 
 	});
