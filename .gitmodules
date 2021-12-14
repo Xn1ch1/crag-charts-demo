@@ -1,0 +1,3 @@
+[submodule "crag-charts"]
+	path = crag-charts
+	url = https://github.com/xn1ch1/crag-charts.git
