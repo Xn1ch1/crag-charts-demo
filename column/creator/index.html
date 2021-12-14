@@ -3,11 +3,11 @@
 	<head>
 
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-		<link href="../../resources/chart-creator.1.0.0.css" rel="stylesheet">
+		<link href="/resources/chart-creator.1.0.0.css" rel="stylesheet">
 
-		<script defer src="../../resources/chart-creator.1.0.0.js"></script>
-		<script src="../../resources/demo.js"></script>
-		<script src="../../resources/html2canvas.min.js"></script>
+		<script defer src="/resources/chart-creator.1.0.0.js"></script>
+		<script src="/resources/demo.js"></script>
+		<script src="/resources/html2canvas.min.js"></script>
 
 		<title>Crag Charts Creator: Column</title>
 
@@ -18,7 +18,7 @@
 		<div id="menu-modal" style="display: none">
 
 			<div id="menu-modal-head" style="width: 100%; background: rgba(50,50,50,0.2); height: 30px;">
-				<img src="../../resources/icons/cross.svg" alt="Menu" id="menu-button-close" onclick="hideMenu()">
+				<img src="/resources/icons/cross.svg" alt="Menu" id="menu-button-close" onclick="hideMenu()">
 			</div>
 
 			<div style="overflow: auto; max-height: 350px; position: relative; padding: 0 16px 8px 16px; box-sizing: border-box;backdrop-filter: brightness(1.25);">
@@ -124,14 +124,14 @@
 
 		<div id="canvas-presentation" style="display: none">
 			<span>Right click image to save</span>
-			<img src="../../resources/icons/cross.svg" onclick="closeCanvas()">
+			<img src="/resources/icons/cross.svg" onclick="closeCanvas()">
 		</div>
 
 		<div id="data-input-overlay" class="overlay" style="display:none"></div>
 
 		<div id="column-chart" class="chart-container"></div>
 
-		<script src="../../crag-charts/crag/crag.charts.loader.js"></script>
+		<script src="/crag-charts/crag/crag.charts.loader.js"></script>
 		<script>
 
 			let chart;
@@ -140,7 +140,7 @@
 
 			themeQuery.addEventListener('change', () => chart.chartColor = cssVar('bg'));
 
-			new CragLoader(['column'], createChart, '../../crag-charts/crag/');
+			new CragLoader(['column'], createChart, '/crag-charts/crag/');
 
 			function createChart() {
 
