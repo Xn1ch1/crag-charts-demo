@@ -220,11 +220,12 @@ function htmlToCanvas() {
 			downloadImage(canvas)
 			.then((response) => {
 
-				const image = response[0];
+				const link = response.url;
+				const file = response.file;
 				const a = document.createElement('a');
 
-				a.href = '/resources/image.png';
-				a.setAttribute('download', image);
+				a.href = link;
+				a.setAttribute('download', file);
 			
 				document.body.append(a);
 				a.click();
@@ -254,8 +255,6 @@ function downloadImage(canvas) {
 
 			if (xhr.readyState !== xhr.DONE) return;
 
-			console.log(xhr.responseText);
-
 			if (xhr.status === 200) {
 
 				const data = JSON.parse(xhr.responseText);
@@ -271,6 +270,7 @@ function downloadImage(canvas) {
 
 		}
 		xhr.open('POST', 'https://cragchartsapi.000webhostapp.com/base64topng.php');
+		// xhr.open('POST', '/resources/base64topng.php');
 		xhr.send(formData);
 
 	});
