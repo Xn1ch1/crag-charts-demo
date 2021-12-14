@@ -131,7 +131,7 @@
 
 		<div id="column-chart" class="chart-container"></div>
 
-		<script src="crag/crag.charts.loader.js?v=1"></script>
+		<script src="/crag-charts/crag/crag.charts.loader.js?v=1"></script>
 		<script>
 
 			let chart;
@@ -140,7 +140,7 @@
 
 			themeQuery.addEventListener('change', () => chart.chartColor = cssVar('bg'));
 
-			new CragLoader(['column'], createChart, '/crag/');
+			new CragLoader(['column'], createChart, '/crag-charts/crag/');
 
 			function createChart() {
 
