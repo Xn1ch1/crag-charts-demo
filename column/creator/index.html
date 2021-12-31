@@ -24,7 +24,7 @@
 
 			<div style="overflow: auto; max-height: 350px; position: relative; padding: 0 16px 8px 16px; box-sizing: border-box;backdrop-filter: brightness(1.25);">
 
-				<button id="menu-modal-data" onclick="showData()">Add/Edit Data</button>
+				<button id="menu-modal-data" onclick="newData()">Random Data</button>
 
 				<label>Chart Options</label>
 				<input type="text" onkeyup="newTitle(this)" id="title" style="padding-left: 66px"/>
@@ -103,32 +103,9 @@
 					<li><input type="checkbox" onchange="toggleMinorLines(this)" id="minorLines" checked><label for="minorLines">Minor Lines</label></li>
 				</ul>
 
-				<button onclick="htmlToCanvas()">Save</button>
-
 			</div>
 
 		</div>
-
-		<div id="data-input-modal" style="display: none">
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>A</th>
-						<th>B</th>
-					</tr>
-				</thead>
-				<tbody id="data-input-table">
-				</tbody>
-			</table>
-		</div>
-
-		<div id="canvas-presentation" style="display: none">
-			<span>Right click image to save</span>
-			<img src="/resources/icons/cross.svg" onclick="closeCanvas()">
-		</div>
-
-		<div id="data-input-overlay" class="overlay" style="display:none"></div>
 
 		<div id="column-chart" class="chart-container"></div>
 
@@ -250,7 +227,6 @@
 				chart.columnWidth = Number(elem.value);
 
 			}
-
 
 		</script>
 
