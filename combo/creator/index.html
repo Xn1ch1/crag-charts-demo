@@ -8,7 +8,6 @@
 
 		<script defer src="/resources/chart-creator.1.0.0.js"></script>
 		<script src="/resources/demo.js"></script>
-		<script src="/resources/html2canvas.min.js"></script>
 
 		<title>Crag Charts Creator: Combo</title>
 
@@ -89,8 +88,21 @@
 					<li><input type="checkbox" onchange="toggleAnimated(this)" id="animated"><label for="animated">Animated</label></li>
 				</ul>
 
-				<label>vAxis</label>
-				<select onchange="newAxisFormat(this)">
+				<label>Line Options</label>
+				<ul class="ks-cboxtags">
+					<li><input type="checkbox" onchange="toggleSmooth(this)" id="smooth" checked><label for="smooth">Smooth</label></li>
+				</ul>
+				<div class="slider-container">
+					<input type="range" value="2" min="1" max="10" onchange="lineWidth(this)">
+					<span>Width</span>
+				</div>
+				<div class="slider-container">
+					<input type="range" value="2" min="0" max="50" onchange="pointSize(this)">
+					<span>Point Size</span>
+				</div>
+
+				<label>Primary vAxis</label>
+				<select onchange="newAxisFormat('primary', this)">
 					<option value="number">Label Format (Default: Number)</option>
 					<option value="time">Time</option>
 					<option value="decimal">Decimal</option>
@@ -99,9 +111,26 @@
 					<option value="currency" data-symbol="EUR">Currency €</option>
 				</select>
 				<ul class="ks-cboxtags">
-					<li><input type="checkbox" onchange="toggleMajorLines(this)" id="majorLines" checked><label for="majorLines">Major Lines</label></li>
-					<li><input type="checkbox" onchange="toggleMinorLines(this)" id="minorLines" checked><label for="minorLines">Minor Lines</label></li>
+					<li><input type="checkbox" onchange="toggleMajorLines('primary', this)" id="primaryMajorLines" checked><label for="primaryMajorLines">Major Lines</label></li>
+					<li><input type="checkbox" onchange="toggleMinorLines('primary', this)" id="primaryMinorLines" checked><label for="primaryMinorLines">Minor Lines</label></li>
 				</ul>
+
+				<label>Secondary vAxis</label>
+				<select onchange="newAxisFormat('secondary', this)">
+					<option value="number">Label Format (Default: Number)</option>
+					<option value="time">Time</option>
+					<option value="decimal">Decimal</option>
+					<option value="currency" data-symbol="GBP">Currency £</option>
+					<option value="currency" data-symbol="USD">Currency $</option>
+					<option value="currency" data-symbol="EUR">Currency €</option>
+				</select>
+				<ul class="ks-cboxtags">
+					<li><input type="checkbox" onchange="toggleMajorLines('secondary', this)" id="secondaryMajorLines"><label for="secondaryMajorLines">Major Lines</label></li>
+					<li><input type="checkbox" onchange="toggleMinorLines('secondary', this)" id="secondaryMinorLines"><label for="secondaryMinorLines">Minor Lines</label></li>
+					<li><input type="checkbox" onchange="toggleShowOnPrimary(this)" id="secondaryOnPrimary"><label for="secondaryOnPrimary">Show On Primary Axis</label></li>
+				</ul>
+
+				<button onclick="showOptions()">Show Options/Data</button>
 
 			</div>
 
@@ -167,21 +196,21 @@
 
 			}
 
-			function newAxisFormat(elem) {
+			function newAxisFormat(axis, elem) {
 
-				chart.setAxisFormat(elem.value, elem.options[elem.selectedIndex].dataset.symbol);
-
-			}
-
-			function toggleMajorLines(elem) {
-
-				chart.majorLinesVisible = elem.checked;
+				chart.setAxisFormat(axis, elem.value, elem.options[elem.selectedIndex].dataset.symbol);
 
 			}
 
-			function toggleMinorLines(elem) {
+			function toggleMajorLines(axis, elem) {
 
-				chart.minorLinesVisible = elem.checked;
+				chart.setMajorLinesVisible(axis, elem.checked);
+
+			}
+
+			function toggleMinorLines(axis, elem) {
+
+				chart.setMinorLinesVisible(axis, elem.checked);
 
 			}
 
@@ -215,6 +244,29 @@
 
 			}
 
+			function toggleShowOnPrimary(elem) {
+
+				chart.showSecondaryOnPrimary = elem.checked;
+
+			}
+
+			function toggleSmooth(elem) {
+
+				chart.smoothLine = elem.checked;
+
+			}
+
+			function lineWidth(elem) {
+
+				chart.lineWidth = elem.value;
+
+			}
+
+			function pointSize(elem) {
+
+				chart.pointSize = elem.value;
+
+			}
 
 		</script>
 
