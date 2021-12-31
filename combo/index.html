@@ -619,41 +619,30 @@ myFunction(obj) {
 			let chart1;
 			let chart2;
 
-			new CragLoader(createCharts, ['combo'], '/crag-charts/');
+			new CragLoader(['combo'], createCharts, '/crag-charts/');
 
 			function createCharts() {
-				let options1 = {
-					data: [['A', 500, 26], ['B', 369, 30], ['C', 420, 20], ['D', 466, 36]],
-				}
-				chart1 = new CragCombo(options1).create('chart1');
-
-				let options2 = {
-					data: [['A', 500, 21], ['B', 436, 25], ['C', 300, 19], ['D', 375, 8]],
+				chart1 = new CragCombo(dataGenerator(12, 2)).create('chart1');
+				chart2 = new CragCombo(dataGenerator(12, 2), {
 					bar: {
 						width: 70,
 						rounded: true,
 						inset: true
 					}
-				}
-				chart2 = new CragCombo(options2).create('chart2');
-
-				let options3 = {
-					data: [['A', 500, 21], ['B', 436, 25], ['C', 300, 19], ['D', 375, 12], ['E', 300, 30]],
+				}).create('chart2');
+				chart3 = new CragCombo(dataGenerator(12, 2), {
 					bar: {
 						width: 70,
-						color: 'lightgrey',
+						color: 'lightGrey',
 						rounded: true
 					},
 					line: {
 						width: 4,
-						color: 'deeporange',
+						color: 'deepOrange',
 						pointSize: 0
 					}
-				}
-				chart3 = new CragCombo(options3).create('chart3');
-
-				let options4 = {
-					data: [['A', 500, 21], ['B', 436, 25], ['C', 300, 19], ['D', 375, 12], ['E', 300, 30]],
+				}).create('chart3');
+				chart4 = new CragCombo(dataGenerator(12, 2), {
 					bar: {
 						width: 60,
 						rounded: true
@@ -669,16 +658,8 @@ myFunction(obj) {
 							format: 'time'
 						}
 					}
-				}
-				chart4 = new CragCombo(options4).create('chart4');
+				}).create('chart4');
 
-			}
-
-			window.onresize = function() {
-				chart1.draw();
-				chart2.draw();
-				chart3.draw();
-				chart4.draw();
 			}
 
 			function newData2() {
