@@ -9,7 +9,7 @@
 		<script defer src="/resources/chart-creator.1.0.0.js"></script>
 		<script src="/resources/demo.js"></script>
 
-		<title>Crag Charts Creator: Column</title>
+		<title>Crag Charts Creator: Combo</title>
 
 	</head>
 
@@ -36,19 +36,19 @@
 					<option value="red">Red</option>
 					<option value="pink">Pink</option>
 					<option value="purple">Purple</option>
-					<option value="deeppurple">Deep Purple</option>
+					<option value="deepPurple">Deep Purple</option>
 					<option value="indigo">Indigo</option>
 					<option value="blue">Blue</option>
-					<option value="lightblue">Light Blue</option>
+					<option value="lightBlue">Light Blue</option>
 					<option value="cyan">Cyan</option>
 					<option value="teal">Teal</option>
 					<option value="green">Green</option>
-					<option value="lightgreen">Light Green</option>
+					<option value="lightGreen">Light Green</option>
 					<option value="lime">Lime</option>
 					<option value="yellow">Yellow</option>
 					<option value="amber">Amber</option>
 					<option value="orange">Orange</option>
-					<option value="deeporange">Deep Orange</option>
+					<option value="deepOrange">Deep Orange</option>
 				</select>
 				<select onchange="newLabelPos(this)">
 					<option value="none">Label Position (Default: None)</option>
@@ -63,19 +63,19 @@
 					<option value="red">Red</option>
 					<option value="pink">Pink</option>
 					<option value="purple">Purple</option>
-					<option value="deeppurple">Deep Purple</option>
+					<option value="deepPurple">Deep Purple</option>
 					<option value="indigo">Indigo</option>
 					<option value="blue">Blue</option>
-					<option value="lightblue">Light Blue</option>
+					<option value="lightBlue">Light Blue</option>
 					<option value="cyan">Cyan</option>
 					<option value="teal">Teal</option>
 					<option value="green">Green</option>
-					<option value="lightgreen">Light Green</option>
+					<option value="lightGreen">Light Green</option>
 					<option value="lime">Lime</option>
 					<option value="yellow">Yellow</option>
 					<option value="amber">Amber</option>
 					<option value="orange">Orange</option>
-					<option value="deeporange">Deep Orange</option>
+					<option value="deepOrange">Deep Orange</option>
 				</select>
 				<div class="slider-container">
 					<input type="range" value="95" min="1" max="100" onchange="newWidth(this)">
@@ -88,8 +88,21 @@
 					<li><input type="checkbox" onchange="toggleAnimated(this)" id="animated"><label for="animated">Animated</label></li>
 				</ul>
 
-				<label>vAxis</label>
-				<select onchange="newAxisFormat(this)">
+				<label>Line Options</label>
+				<ul class="ks-cboxtags">
+					<li><input type="checkbox" onchange="toggleSmooth(this)" id="smooth" checked><label for="smooth">Smooth</label></li>
+				</ul>
+				<div class="slider-container">
+					<input type="range" value="2" min="1" max="10" onchange="lineWidth(this)">
+					<span>Width</span>
+				</div>
+				<div class="slider-container">
+					<input type="range" value="2" min="0" max="50" onchange="pointSize(this)">
+					<span>Point Size</span>
+				</div>
+
+				<label>Primary vAxis</label>
+				<select onchange="newAxisFormat('primary', this)">
 					<option value="number">Label Format (Default: Number)</option>
 					<option value="time">Time</option>
 					<option value="decimal">Decimal</option>
@@ -98,8 +111,23 @@
 					<option value="currency" data-symbol="EUR">Currency €</option>
 				</select>
 				<ul class="ks-cboxtags">
-					<li><input type="checkbox" onchange="toggleMajorLines(this)" id="majorLines" checked><label for="majorLines">Major Lines</label></li>
-					<li><input type="checkbox" onchange="toggleMinorLines(this)" id="minorLines" checked><label for="minorLines">Minor Lines</label></li>
+					<li><input type="checkbox" onchange="toggleMajorLines('primary', this)" id="primaryMajorLines" checked><label for="primaryMajorLines">Major Lines</label></li>
+					<li><input type="checkbox" onchange="toggleMinorLines('primary', this)" id="primaryMinorLines" checked><label for="primaryMinorLines">Minor Lines</label></li>
+				</ul>
+
+				<label>Secondary vAxis</label>
+				<select onchange="newAxisFormat('secondary', this)">
+					<option value="number">Label Format (Default: Number)</option>
+					<option value="time">Time</option>
+					<option value="decimal">Decimal</option>
+					<option value="currency" data-symbol="GBP">Currency £</option>
+					<option value="currency" data-symbol="USD">Currency $</option>
+					<option value="currency" data-symbol="EUR">Currency €</option>
+				</select>
+				<ul class="ks-cboxtags">
+					<li><input type="checkbox" onchange="toggleMajorLines('secondary', this)" id="secondaryMajorLines"><label for="secondaryMajorLines">Major Lines</label></li>
+					<li><input type="checkbox" onchange="toggleMinorLines('secondary', this)" id="secondaryMinorLines"><label for="secondaryMinorLines">Minor Lines</label></li>
+					<li><input type="checkbox" onchange="toggleShowOnPrimary(this)" id="secondaryOnPrimary"><label for="secondaryOnPrimary">Show On Primary Axis</label></li>
 				</ul>
 
 				<button onclick="showOptions()">Show Options/Data</button>
@@ -119,24 +147,18 @@
 
 			themeQuery.addEventListener('change', () => chart.chartColor = cssVar('bg'));
 
-			new CragLoader(['column'], createChart, '/crag-charts/');
+			new CragLoader(['combo'], createChart, '/crag-charts/');
 
 			function createChart() {
 
-				const data = dataGenerator(5);
-				const options = {
+				chart = new CragCombo(dataGenerator(10, 2), {
 					columns: {
 						width: 95,
-					},
-					vAxis: {
-						name: 'A series',
 					},
 					chart: {
 						color: cssVar('bg')
 					}
-				}
-
-				chart = new CragColumn(data, options).create('column-chart');
+				}).create('column-chart');
 
 			}
 
@@ -146,14 +168,7 @@
 
 			function newData() {
 
-				document.getElementById('new-data').style.transform = 'rotate(360deg)';
-				document.getElementById('new-data').style.pointerEvents = 'none';
-
-				setTimeout(() => document.getElementById('new-data').style.transform = '', 350);
-				setTimeout(() => document.getElementById('new-data').style.pointerEvents = '', 800);
-
-				chart.newData = dataGenerator(15);
-
+				chart.update(dataGenerator(20, 2));
 
 			}
 
@@ -181,21 +196,21 @@
 
 			}
 
-			function newAxisFormat(elem) {
+			function newAxisFormat(axis, elem) {
 
-				chart.setAxisFormat(elem.value, elem.options[elem.selectedIndex].dataset.symbol);
-
-			}
-
-			function toggleMajorLines(elem) {
-
-				chart.majorLinesVisible = elem.checked;
+				chart.setAxisFormat(axis, elem.value, elem.options[elem.selectedIndex].dataset.symbol);
 
 			}
 
-			function toggleMinorLines(elem) {
+			function toggleMajorLines(axis, elem) {
 
-				chart.minorLinesVisible = elem.checked;
+				chart.setMajorLinesVisible(axis, elem.checked);
+
+			}
+
+			function toggleMinorLines(axis, elem) {
+
+				chart.setMinorLinesVisible(axis, elem.checked);
 
 			}
 
@@ -226,6 +241,30 @@
 			function newWidth(elem) {
 
 				chart.columnWidth = Number(elem.value);
+
+			}
+
+			function toggleShowOnPrimary(elem) {
+
+				chart.showSecondaryOnPrimary = elem.checked;
+
+			}
+
+			function toggleSmooth(elem) {
+
+				chart.smoothLine = elem.checked;
+
+			}
+
+			function lineWidth(elem) {
+
+				chart.lineWidth = elem.value;
+
+			}
+
+			function pointSize(elem) {
+
+				chart.pointSize = elem.value;
 
 			}
 
