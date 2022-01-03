@@ -16,7 +16,34 @@ function hideMenu() {
 	document.getElementById('menu-modal').style.display = 'none';
 	
 }
-	
+
+function showOptions(chart) {
+
+	const textArea = document.createElement('textarea');
+
+	textArea.style.cssText = 'position: fixed; z-index: 10; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 600px; height: 500px; white-space: nowrap';
+
+	textArea.textContent = `options = ${JSON.stringify(chart.options, null, 2)}\n\ndata = ${JSON.stringify(chart.data.series)}`;
+	textArea.onclick = (event) => event.stopPropagation();
+
+	document.body.append(textArea);
+
+	setTimeout(() => {
+
+		document.body.onclick = () => {
+
+			textArea.remove();
+			document.getElementById('menu-modal').style.display = '';
+			document.body.onclick = null;
+
+		}
+
+	}, 50);
+
+	hideMenu();
+
+}
+
 	
 document.getElementById('menu-modal-head').ondragstart = function() {
 	return false;
@@ -55,32 +82,5 @@ document.getElementById('menu-modal-head').onmousedown = function(event) {
 		document.getElementById('menu-modal').onmouseup = null;
 
 	};
-
-}
-
-function showOptions() {
-
-	const textArea = document.createElement('textarea');
-
-	textArea.style.cssText = 'position: fixed; z-index: 10; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 600px; height: 500px; white-space: nowrap';
-
-	textArea.textContent = `options = ${JSON.stringify(chart.options, null, 2)}\n\ndata = ${JSON.stringify(chart.data.series)}`;
-	textArea.onclick = (event) => event.stopPropagation();
-
-	document.body.append(textArea);
-
-	setTimeout(() => {
-
-		document.body.onclick = () => {
-
-			textArea.remove();
-			document.getElementById('menu-modal').style.display = '';
-			document.body.onclick = null;
-
-		}
-
-	}, 50);
-
-	hideMenu();
 
 }
