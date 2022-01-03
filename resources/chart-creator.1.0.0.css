@@ -64,6 +64,10 @@ body {
     margin-left: 16px;
     cursor: pointer;
 }
+#menu-modal select:disabled {
+    opacity: 0.3 !important;
+    pointer-events: none;
+}
 #menu-modal input[type="text"] {
     cursor: text;
 }
@@ -370,9 +374,13 @@ ul.ks-cboxtags li input[type="checkbox"]:checked + label {
 }
 
 ul.ks-cboxtags li input[type="checkbox"] {
-	display: absolute;
+	position: absolute;
 }
 ul.ks-cboxtags li input[type="checkbox"] {
 	position: absolute;
 	opacity: 0;
+}
+ul.ks-cboxtags li input[type="checkbox"]:disabled + label {
+    opacity: 0.3 !important;
+    pointer-events: none;
 }

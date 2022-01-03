@@ -376,3 +376,4 @@ const wordList = [
 	"dog", "dolphin", "giraffe", "penguin", "tiger", "lion",
 	"smells", "vroom", "crazy", "bed"
   ];
+

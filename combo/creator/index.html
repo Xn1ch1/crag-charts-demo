@@ -15,287 +15,344 @@
 
 	<body>
 
-		<div id="menu-modal" style="display: none">
+	<div id="menu-modal" style="display: none">
 
-			<div id="menu-modal-head" style="width: 100%; background: rgba(50,50,50,0.2); height: 30px;">
-				<img src="/resources/icons/cross.svg" alt="Menu" id="menu-button-close" onclick="hideMenu()">
+		<div id="menu-modal-head" style="width: 100%; background: rgba(50,50,50,0.2); height: 30px;">
+			<img src="/resources/icons/cross.svg" alt="Menu" id="menu-button-close" onclick="hideMenu()">
+		</div>
+
+		<div style="overflow: auto; max-height: 350px; position: relative; padding: 0 16px 8px 16px; box-sizing: border-box;backdrop-filter: brightness(1.25);">
+
+			<button id="menu-modal-data" onclick="newData()">Random Data</button>
+
+
+			<label>Chart</label>
+			<input type="text" onkeyup="chartTitle(this)" id="title" style="padding-left: 66px"/>
+			<span class="menu-modal-text-label">Title Text:</span>
+			<ul class="ks-cboxtags">
+				<li><input type="checkbox" onchange="chartColor(this)" id="chart-color"><label for="chart-color">Dark Mode</label></li>
+			</ul>
+
+			<label>Columns</label>
+			<select onchange="newColumnColor(this)">
+				<option value="multi">Color: Multicolored (default)</option>
+				<option value="redGreen">Red/Green</option>
+				<option value="red">Red</option>
+				<option value="pink">Pink</option>
+				<option value="purple">Purple</option>
+				<option value="deepPurple">Deep Purple</option>
+				<option value="indigo">Indigo</option>
+				<option value="blue">Blue</option>
+				<option value="lightBlue">Light Blue</option>
+				<option value="cyan">Cyan</option>
+				<option value="teal">Teal</option>
+				<option value="green">Green</option>
+				<option value="lightGreen">Light Green</option>
+				<option value="lime">Lime</option>
+				<option value="yellow">Yellow</option>
+				<option value="amber">Amber</option>
+				<option value="orange">Orange</option>
+				<option value="deepOrange">Deep Orange</option>
+			</select>
+			<div class="slider-container">
+				<input type="range" value="95" min="1" max="100" oninput="columnWidth(this)">
+				<span>% Width</span>
 			</div>
-
-			<div style="overflow: auto; max-height: 350px; position: relative; padding: 0 16px 8px 16px; box-sizing: border-box;backdrop-filter: brightness(1.25);">
-
-				<button id="menu-modal-data" onclick="newData()">Random Data</button>
-
-				<label>Chart Options</label>
-				<input type="text" onkeyup="newTitle(this)" id="title" style="padding-left: 66px"/>
-				<span class="menu-modal-text-label">Title Text:</span>
-
-				<label>Column Options</label>
-				<select onchange="newColumnColor(this)">
-					<option value="multi">Color (Default: Multi)</option>
-					<option value="redGreen">Red/Green</option>
-					<option value="red">Red</option>
-					<option value="pink">Pink</option>
-					<option value="purple">Purple</option>
-					<option value="deepPurple">Deep Purple</option>
-					<option value="indigo">Indigo</option>
-					<option value="blue">Blue</option>
-					<option value="lightBlue">Light Blue</option>
-					<option value="cyan">Cyan</option>
-					<option value="teal">Teal</option>
-					<option value="green">Green</option>
-					<option value="lightGreen">Light Green</option>
-					<option value="lime">Lime</option>
-					<option value="yellow">Yellow</option>
-					<option value="amber">Amber</option>
-					<option value="orange">Orange</option>
-					<option value="deepOrange">Deep Orange</option>
-				</select>
-				<select onchange="newLabelPos(this)">
-					<option value="none">Label Position (Default: None)</option>
-					<option value="inside">Inside</option>
-					<option value="outside">Outside</option>
-				</select>
-				<select onchange="newLabelColor(this)">
-					<option value="auto">Label Color (Default: Auto)</option>
-					<option value="match">Match Column</option>
-					<option value="black">Black</option>
-					<option value="white">White</option>
-					<option value="red">Red</option>
-					<option value="pink">Pink</option>
-					<option value="purple">Purple</option>
-					<option value="deepPurple">Deep Purple</option>
-					<option value="indigo">Indigo</option>
-					<option value="blue">Blue</option>
-					<option value="lightBlue">Light Blue</option>
-					<option value="cyan">Cyan</option>
-					<option value="teal">Teal</option>
-					<option value="green">Green</option>
-					<option value="lightGreen">Light Green</option>
-					<option value="lime">Lime</option>
-					<option value="yellow">Yellow</option>
-					<option value="amber">Amber</option>
-					<option value="orange">Orange</option>
-					<option value="deepOrange">Deep Orange</option>
-				</select>
-				<div class="slider-container">
-					<input type="range" value="95" min="1" max="100" onchange="newWidth(this)">
-					<span>Column Width</span>
-				</div>
-				<ul class="ks-cboxtags">
-					<li><input type="checkbox" onchange="toggleRounded(this)" id="rounded"><label for="rounded">Rounded</label></li>
-					<li><input type="checkbox" onchange="toggleInset(this)" id="inset"><label for="inset">Inset</label></li>
-					<li><input type="checkbox" onchange="toggleStriped(this)" id="striped"><label for="striped">Striped</label></li>
-					<li><input type="checkbox" onchange="toggleAnimated(this)" id="animated"><label for="animated">Animated</label></li>
-				</ul>
-
-				<label>Line Options</label>
-				<ul class="ks-cboxtags">
-					<li><input type="checkbox" onchange="toggleSmooth(this)" id="smooth" checked><label for="smooth">Smooth</label></li>
-				</ul>
-				<div class="slider-container">
-					<input type="range" value="2" min="1" max="10" onchange="lineWidth(this)">
-					<span>Width</span>
-				</div>
-				<div class="slider-container">
-					<input type="range" value="2" min="0" max="50" onchange="pointSize(this)">
-					<span>Point Size</span>
-				</div>
-				<select onchange="lineColor(this)">
-					<option value="">Color (Default: Auto)</option>
-					<option value="black">Black</option>
-					<option value="white">White</option>
-					<option value="red">Red</option>
-					<option value="pink">Pink</option>
-					<option value="purple">Purple</option>
-					<option value="deepPurple">Deep Purple</option>
-					<option value="indigo">Indigo</option>
-					<option value="blue">Blue</option>
-					<option value="lightBlue">Light Blue</option>
-					<option value="cyan">Cyan</option>
-					<option value="teal">Teal</option>
-					<option value="green">Green</option>
-					<option value="lightGreen">Light Green</option>
-					<option value="lime">Lime</option>
-					<option value="yellow">Yellow</option>
-					<option value="amber">Amber</option>
-					<option value="orange">Orange</option>
-					<option value="deepOrange">Deep Orange</option>
-				</select>
-
-				<label>Primary vAxis</label>
-				<select onchange="newAxisFormat('primary', this)">
-					<option value="number">Label Format (Default: Number)</option>
-					<option value="time">Time</option>
-					<option value="decimal">Decimal</option>
-					<option value="currency" data-symbol="GBP">Currency £</option>
-					<option value="currency" data-symbol="USD">Currency $</option>
-					<option value="currency" data-symbol="EUR">Currency €</option>
-				</select>
-				<ul class="ks-cboxtags">
-					<li><input type="checkbox" onchange="toggleMajorLines('primary', this)" id="primaryMajorLines" checked><label for="primaryMajorLines">Major Lines</label></li>
-					<li><input type="checkbox" onchange="toggleMinorLines('primary', this)" id="primaryMinorLines" checked><label for="primaryMinorLines">Minor Lines</label></li>
-				</ul>
-
-				<label>Secondary vAxis</label>
-				<select onchange="newAxisFormat('secondary', this)">
-					<option value="number">Label Format (Default: Number)</option>
-					<option value="time">Time</option>
-					<option value="decimal">Decimal</option>
-					<option value="currency" data-symbol="GBP">Currency £</option>
-					<option value="currency" data-symbol="USD">Currency $</option>
-					<option value="currency" data-symbol="EUR">Currency €</option>
-				</select>
-				<ul class="ks-cboxtags">
-					<li><input type="checkbox" onchange="toggleMajorLines('secondary', this)" id="secondaryMajorLines"><label for="secondaryMajorLines">Major Lines</label></li>
-					<li><input type="checkbox" onchange="toggleMinorLines('secondary', this)" id="secondaryMinorLines"><label for="secondaryMinorLines">Minor Lines</label></li>
-					<li><input type="checkbox" onchange="toggleShowOnPrimary(this)" id="secondaryOnPrimary"><label for="secondaryOnPrimary">Show On Primary Axis</label></li>
-				</ul>
-
-				<button onclick="showOptions()">Show Options/Data</button>
-
+			<div class="slider-container">
+				<input type="range" value="0" min="0" max="64" oninput="columnRounding(this)">
+				<span>Rounding</span>
 			</div>
+			<div class="slider-container">
+				<input type="range" value="0" step="1" max="15" min="0" oninput="columnShadow(this)" id="shadow-outset">
+				<span>Outset Shadow</span>
+			</div>
+			<div class="slider-container">
+				<input type="range" value="0" min="0" max="15" oninput="columnShadow(this)" id="shadow-inset">
+				<span>Inset Shadow</span>
+			</div>
+			<ul class="ks-cboxtags">
+				<li><input type="checkbox" onchange="columnStripes(this)" id="striped"><label for="striped">Stripes</label></li>
+				<li><input type="checkbox" onchange="columnAnimatedStripes(this)" id="animated" disabled><label for="animated">Animated Stripes</label></li>
+			</ul>
+
+			<label>Column Labels</label>
+			<select onchange="columnLabelPosition(this)">
+				<option value="none">Position (Default: None)</option>
+				<option value="inside">Inside</option>
+				<option value="outside">Outside</option>
+			</select>
+			<select onchange="columnLabelColor(this)">
+				<option value="auto">Color (Default: Auto)</option>
+				<option value="match">Match Column</option>
+				<option value="black">Black</option>
+				<option value="white">White</option>
+				<option value="red">Red</option>
+				<option value="pink">Pink</option>
+				<option value="purple">Purple</option>
+				<option value="deepPurple">Deep Purple</option>
+				<option value="indigo">Indigo</option>
+				<option value="blue">Blue</option>
+				<option value="lightBlue">Light Blue</option>
+				<option value="cyan">Cyan</option>
+				<option value="teal">Teal</option>
+				<option value="green">Green</option>
+				<option value="lightGreen">Light Green</option>
+				<option value="lime">Lime</option>
+				<option value="yellow">Yellow</option>
+				<option value="amber">Amber</option>
+				<option value="orange">Orange</option>
+				<option value="deepOrange">Deep Orange</option>
+			</select>
+
+			<label>Line</label>
+			<select onchange="lineColor(this)">
+				<option value="auto">Color (Default: Auto)</option>
+				<option value="black">Black</option>
+				<option value="white">White</option>
+				<option value="red">Red</option>
+				<option value="pink">Pink</option>
+				<option value="purple">Purple</option>
+				<option value="deepPurple">Deep Purple</option>
+				<option value="indigo">Indigo</option>
+				<option value="blue">Blue</option>
+				<option value="lightBlue">Light Blue</option>
+				<option value="cyan">Cyan</option>
+				<option value="teal">Teal</option>
+				<option value="green">Green</option>
+				<option value="lightGreen">Light Green</option>
+				<option value="lime">Lime</option>
+				<option value="yellow">Yellow</option>
+				<option value="amber">Amber</option>
+				<option value="orange">Orange</option>
+				<option value="deepOrange">Deep Orange</option>
+			</select>
+			<div class="slider-container">
+				<input type="range" value="2" step="1" max="15" min="1" oninput="lineThickness(this)">
+				<span>Thickness</span>
+			</div>
+			<div class="slider-container">
+				<input type="range" value="4" step="1" max="20" min="0" oninput="pointSize(this)">
+				<span>Point Size</span>
+			</div>
+			<ul class="ks-cboxtags">
+				<li><input type="checkbox" onchange="smoothLine(this)" id="smoothLine" checked><label for="smoothLine">Smooth</label></li>
+			</ul>
+
+			<label>Primary vAxis</label>
+			<select onchange="primaryAxisFormat(this)">
+				<option value="decimal">Label Format (Default: Decimal)</option>
+				<option value="currency">Currency</option>
+				<option value="time">Time</option>
+			</select>
+			<select onchange="primaryAxisDecimals(this)" id="primaryAxisDecimals">
+				<option value="0">Decimal Places (Default: 0)</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
+			<select onchange="primaryAxisCurrencySymbol(this)" id="primaryAxisCurrencySymbol" disabled>
+				<option value="GBP">Currency Symbol (Default: GBP)</option>
+				<option value="USD">USD</option>
+				<option value="EUR">EUR</option>
+				<option value="JPY">JPY</option>
+				<option value="CAD">CAD</option>
+			</select>
+			<ul class="ks-cboxtags">
+				<li><input type="checkbox" onchange="primaryMajorLines(this)" id="primaryMajorLines" checked><label for="primaryMajorLines">Major Lines</label></li>
+				<li><input type="checkbox" onchange="primaryMinorLines(this)" id="primaryMinorLines" checked><label for="primaryMinorLines">Minor Lines</label></li>
+				<li><input type="checkbox" onchange="shadowOnZeroLine(this)" id="primaryShadowZeroLine"><label for="primaryShadowZeroLine">Shadow on 'Zero Line'</label></li>
+			</ul>
+
+			<label>Secondary vAxis</label>
+			<select onchange="secondaryAxisFormat(this)" id="secondaryAxisFormat">
+				<option value="decimal">Label Format (Default: Decimal)</option>
+				<option value="currency">Currency</option>
+				<option value="time">Time</option>
+			</select>
+			<select onchange="secondaryAxisDecimals(this)" id="secondaryAxisDecimals">
+				<option value="0">Decimal Places (Default: 0)</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
+			<select onchange="secondaryAxisCurrencySymbol(this)" id="secondaryAxisCurrencySymbol" disabled>
+				<option value="GBP">Currency Symbol (Default: GBP)</option>
+				<option value="USD">USD</option>
+				<option value="EUR">EUR</option>
+				<option value="JPY">JPY</option>
+				<option value="CAD">CAD</option>
+			</select>
+			<ul class="ks-cboxtags">
+				<li><input type="checkbox" onchange="secondaryMajorLines(this)" id="secondaryMajorLines"><label for="secondaryMajorLines">Major Lines</label></li>
+				<li><input type="checkbox" onchange="secondaryMinorLines(this)" id="secondaryMinorLines"><label for="secondaryMinorLines">Minor Lines</label></li>
+				<li><input type="checkbox" onchange="secondaryShowOnPrimary(this)" id="secondaryShowOnPrimary"><label for="secondaryShowOnPrimary">Show on Primary Axis</label></li>
+			</ul>
+
+			<button onclick="showOptions(chart)">Show Options/Data</button>
 
 		</div>
 
-		<div id="column-chart" class="chart-container"></div>
+	</div>
 
-		<script src="/crag-charts/crag.charts.loader.js"></script>
-		<script>
+	<div id="column-chart" class="chart-container"></div>
 
-			let chart;
+	<script src="/crag/crag.charts.loader.js"></script>
+	<script>
 
-			const themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		let chart;
 
-			themeQuery.addEventListener('change', () => chart.chartColor = cssVar('bg'));
+		new CragLoader(['combo'], createChart, '/crag/');
 
-			new CragLoader(['combo'], createChart, '/crag-charts/');
+		function createChart() {
 
-			function createChart() {
+			chart = new CragCombo(dataGenerator(15, 2)).create('column-chart');
 
-				chart = new CragCombo(dataGenerator(10, 2), {
-					columns: {
-						width: 95,
-					},
-					chart: {
-						color: cssVar('bg')
-					}
-				}).create('column-chart');
+		}
 
-			}
+	</script>
 
-		</script>
+	<script>
 
-		<script>
+		function newData() {
+			chart.update(dataGenerator(20, 2));
+		}
 
-			function newData() {
+		function chartTitle(elem) {
+			chart.title = elem.value;
+		}
 
-				chart.update(dataGenerator(20, 2));
+		function chartColor(elem) {
+			chart.color = elem.checked ? '#081B33' : '#FFFFFF';
+		}
 
-			}
-
-			function newColumnColor(elem) {
-
-				chart.columnColor = elem.value;
-
-			}
-
-			function newTitle(elem) {
-
-				chart.title = elem.value;
-
-			}
-
-			function newLabelPos(elem) {
-
-				chart.labelPosition = elem.value;
-
-			}
-
-			function newLabelColor(elem) {
-
-				chart.labelColor = elem.value;
-
-			}
-
-			function newAxisFormat(axis, elem) {
-
-				chart.setAxisFormat(axis, elem.value, elem.options[elem.selectedIndex].dataset.symbol);
-
-			}
-
-			function toggleMajorLines(axis, elem) {
-
-				chart.setMajorLinesVisible(axis, elem.checked);
-
-			}
-
-			function toggleMinorLines(axis, elem) {
-
-				chart.setMinorLinesVisible(axis, elem.checked);
-
-			}
-
-			function toggleRounded(elem) {
-
-				chart.columnsRounded = elem.checked;
-
-			}
-
-			function toggleInset(elem) {
-
-				chart.columnsInset = elem.checked;
-
-			}
-
-			function toggleStriped(elem) {
-
-				chart.columnsStriped = elem.checked;
-
-			}
-
-			function toggleAnimated(elem) {
-
-				chart.columnsAnimated = elem.checked;
-
-			}
-
-			function newWidth(elem) {
-
-				chart.columnWidth = Number(elem.value);
-
-			}
-
-			function toggleShowOnPrimary(elem) {
-
-				chart.showSecondaryOnPrimary = elem.checked;
-
-			}
-
-			function toggleSmooth(elem) {
-
-				chart.smoothLine = elem.checked;
-
-			}
-
-			function lineWidth(elem) {
-
-				chart.lineWidth = elem.value;
-
-			}
-
-			function pointSize(elem) {
-
-				chart.pointSize = elem.value;
-
-			}
-
-			function lineColor(elem) {
-
-				chart.lineColor = elem.value;
-
-			}
-
-		</script>
+
+		/**
+		 * Secondary vAxis
+		 */
+		function secondaryAxisFormat(elem) {
+			document.getElementById('secondaryAxisDecimals').disabled = elem.value === 'time';
+			document.getElementById('secondaryAxisCurrencySymbol').disabled = elem.value !== 'currency';
+			chart.secondaryVAxis.format = elem.value;
+		}
+
+		function secondaryAxisDecimals(elem) {
+			chart.secondaryVAxis.decimals = elem.value;
+		}
+
+		function secondaryAxisCurrencySymbol(elem) {
+			chart.secondaryVAxis.currencySymbol = elem.value;
+		}
+
+		function secondaryMajorLines(elem) {
+			chart.secondaryVAxis.majorLines = elem.checked;
+		}
+
+		function secondaryMinorLines(elem) {
+			chart.secondaryVAxis.minorLines = elem.checked;
+		}
+
+		function secondaryShowOnPrimary(elem) {
+			document.getElementById('secondaryMajorLines').disabled = elem.checked;
+			document.getElementById('secondaryMinorLines').disabled = elem.checked;
+			chart.secondaryVAxis.showOnPrimary = elem.checked;
+		}
+
+		/**
+		 * Primary vAxis
+		 */
+		function shadowOnZeroLine(elem) {
+			chart.primaryVAxis.shadowOnZeroLine = elem.checked;
+		}
+
+		function primaryAxisFormat(elem) {
+			document.getElementById('primaryAxisDecimals').disabled = elem.value === 'time';
+			document.getElementById('primaryAxisCurrencySymbol').disabled = elem.value !== 'currency';
+			chart.primaryVAxis.format = elem.value;
+		}
+
+		function primaryAxisDecimals(elem) {
+			chart.primaryVAxis.decimals = elem.value;
+		}
+
+		function primaryAxisCurrencySymbol(elem) {
+			chart.primaryVAxis.currencySymbol = elem.value;
+		}
+
+		function primaryMajorLines(elem) {
+			chart.primaryVAxis.majorLines = elem.checked;
+		}
+
+		function primaryMinorLines(elem) {
+			chart.primaryVAxis.minorLines = elem.checked;
+		}
+
+		function primaryAxisMinimum(elem) {
+			chart.primaryVAxis.minimum = elem.value;
+		}
+
+		/**
+		 * Column Modifications
+		 */
+		function newColumnColor(elem) {
+			chart.columns.color = elem.value;
+		}
+
+		function columnRounding(elem) {
+			chart.columns.rounding = elem.value;
+		}
+
+		function columnShadow(elem) {
+			if (elem.id === 'shadow-outset' && elem.value !== 0) document.getElementById('shadow-inset').value = '0';
+			if (elem.id === 'shadow-inset' && elem.value !== 0) document.getElementById('shadow-outset').value = '0';
+			chart.columns.shadow = elem.id === 'shadow-inset' ? -elem.value : elem.value;
+		}
+
+		function columnStripes(elem) {
+			document.getElementById('animated').disabled = !elem.checked;
+			chart.columns.stripes = elem.checked;
+		}
+
+		function columnAnimatedStripes(elem) {
+			chart.columns.animatedStripes = elem.checked;
+		}
+
+		function columnWidth(elem) {
+			chart.columns.width = Number(elem.value);
+		}
+
+		/**
+		 * Column Label Modification
+		 */
+		function columnLabelColor(elem) {
+			chart.columns.labelColor = elem.value;
+		}
+
+		function columnLabelPosition(elem) {
+			chart.columns.labelPosition = elem.value;
+		}
+
+		/**
+		 * Line
+		 */
+		function lineColor(elem) {
+			console.log(elem.value);
+			chart.line.color = elem.value;
+		}
+		function lineThickness(elem) {
+			chart.line.thickness = elem.value;
+		}
+		function pointSize(elem) {
+			chart.line.pointSize = elem.value;
+		}
+		function smoothLine(elem) {
+			chart.line.smooth = elem.checked;
+		}
+
+	</script>
 
 	</body>
 
