@@ -385,27 +385,15 @@ chart.update(newData);</code></pre>
 			let chartPartial;
 			let chartFull;
 
-			new CragLoader(createCharts, ['line'], '/crag-charts/');
+			new CragLoader(['lines'], createCharts, '/crag-charts/');
 
 			function createCharts() {
-				let optionsDefault = {
-					data: [['A', 134], ['B', 255], ['C', 100], ['D', 50]],
-				}
-				chartDefault = new CragLine(optionsDefault).create('line-chart');
 
-				let optionsDefault2 = {
-					data: [['A', 400], ['B', 800], ['C', 650], ['D', 500], ['E', 700]],
-					line: {
-						color: 'purple'
-					},
-					vAxis: {
-						min: 'auto'
-					}
-				}
-				chartDefault2 = new CragLine(optionsDefault2).create('line-chart-2');
+				chartDefault = new CragLine(dataGenerator(10, 1)).create('line-chart');
 
-				let optionsPartial = {
-					data: [['A', 500], ['B', 436], ['C', 300], ['D', 375]],
+				chartDefault2 = new CragLine(dataGenerator(10, 2)).create('line-chart-2');
+
+				chartPartial = new CragLine(dataGenerator(10, 1), {
 					chart: {
 						color: 'charcoal'
 					},
@@ -413,49 +401,28 @@ chart.update(newData);</code></pre>
 						width: 5,
 						color: 'red'
 					}
-				}
-				chartPartial = new CragLine(optionsPartial).create('line-chart-partial');
+				}).create('line-chart-partial');
 
-				let optionsFull = {
-					data: [['A', 2.3], ['B', 3.6], ['C', 1.2], ['D', 5.4], ['E', 4.4], ['F', 3.2]],
-					line: {
-						color: 'teal',
-						pointSize: 1,
-						smooth: false
+				chartFull = new CragLine(dataGenerator(10, 1), {
+					lines: {
+						0: {
+							color: 'teal',
+							pointSize: 1,
+							smooth: false
+						},
 					},
-					vAxis: {
-						min: 'auto',
-						format: 'decimal',
-						label: 'Score'
+					vAxes: {
+						primary: {
+							min: 'auto',
+							format: 'number',
+							decimalPlaces: 1,
+							name: 'Score'
+						}
 					},
 					chart: {
 						title: 'Score per Player'
 					},
-					labels: {
-						shadow: true
-					}
-				}
-				chartFull = new CragLine(optionsFull).create('line-chart-full');
-			}
-
-			window.onresize = function() {
-				chartDefault.draw();
-				chartPartial.draw();
-				chartFull.draw();
-			}
-
-			let resizeChart = document.getElementById('line-chart-2');
-
-			let w = resizeChart.offsetWidth;
-			let h = resizeChart.offsetHeight;
-
-			var tid = setInterval(mycode, 1000);
-			function mycode() {
-				if (w != resizeChart.offsetWidth || h != resizeChart.offsetHeight) {
-					w = resizeChart.offsetWidth;
-					h = resizeChart.offsetHeight;
-					chartDefault2.draw();
-				}
+				}).create('line-chart-full');
 			}
 
 			function newDataPartial() {
